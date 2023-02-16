@@ -1,4 +1,4 @@
-pragma solidity >=0.5.0 <0.7.0;
+pragma solidity >=0.5.0 <0.9.0;
 
 library PairingsBn254 {
     uint256 constant q_mod = 21888242871839275222246405745257275088696311157297823662689037894645226208583;
@@ -755,7 +755,7 @@ contract Plonk4VerifierWithAccessToDNext {
     }
 }
 
-contract ConcreteVerifier is Plonk4VerifierWithAccessToDNext {
+contract KeyedVerifier is Plonk4VerifierWithAccessToDNext {
     function get_verification_key() internal pure returns(VerificationKey memory vk) {
         vk.domain_size = 4194304;
         vk.num_inputs = 1;
