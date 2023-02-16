@@ -935,4 +935,18 @@ contract KeyedVerifier is Plonk4VerifierWithAccessToDNext {
 
         return valid;
     }
+
+    function verify_serialized_proof(
+        uint256[] memory public_inputs,
+        uint256[] memory serialized_proof
+    ) public view returns (bool) {
+        VerificationKey memory vk = get_verification_key();
+        require(vk.num_inputs == public_inputs.length);
+
+        Proof memory proof = deserialize_proof(public_inputs, serialized_proof);
+
+        bool valid = verify(proof, vk);
+
+        return valid;
+    }
 }
