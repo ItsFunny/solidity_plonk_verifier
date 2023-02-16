@@ -393,7 +393,7 @@ contract Plonk4VerifierWithAccessToDNext {
 
         for (uint i = dens.length - 1; i < dens.length; i--) {
             dens[i].assign(tmp_2); // all inversed
-            dens[i].mul_assign(partial_products[i]); // clear lowest terms    
+            dens[i].mul_assign(partial_products[i]); // clear lowest terms
             tmp_2.mul_assign(dens[i]);
         }
 
@@ -468,7 +468,7 @@ contract Plonk4VerifierWithAccessToDNext {
         Proof memory proof,
         VerificationKey memory vk
     ) internal view returns (PairingsBn254.G1Point memory res) {
-        // we compute what power of v is used as a delinearization factor in batch opening of 
+        // we compute what power of v is used as a delinearization factor in batch opening of
         // commitments. Let's label W(x) = 1 / (x - z) *
         // [
         // t_0(x) + z^n * t_1(x) + z^2n * t_2(x) + z^3n * t_3(x) - t(z)
@@ -717,6 +717,7 @@ contract Plonk4VerifierWithAccessToDNext {
 
         transcript.update_with_fr(proof.quotient_polynomial_at_z);
         transcript.update_with_fr(proof.linearization_polynomial_at_z);
+        transcript.update_with_fr(proof.grand_product_at_z_omega);
 
         state.v = transcript.get_challenge();
         transcript.update_with_g1(proof.opening_at_z_proof);
@@ -728,16 +729,16 @@ contract Plonk4VerifierWithAccessToDNext {
 
     // This verifier is for a PLONK with a state width 4
     // and main gate equation
-    // q_a(X) * a(X) + 
-    // q_b(X) * b(X) + 
-    // q_c(X) * c(X) + 
-    // q_d(X) * d(X) + 
-    // q_m(X) * a(X) * b(X) + 
-    // q_constants(X)+ 
+    // q_a(X) * a(X) +
+    // q_b(X) * b(X) +
+    // q_c(X) * c(X) +
+    // q_d(X) * d(X) +
+    // q_m(X) * a(X) * b(X) +
+    // q_constants(X)+
     // q_d_next(X) * d(X*omega)
     // where q_{}(X) are selectors a, b, c, d - state (witness) polynomials
-    // q_d_next(X) "peeks" into the next row of the trace, so it takes 
-    // the same d(X) polynomial, but shifted  
+    // q_d_next(X) "peeks" into the next row of the trace, so it takes
+    // the same d(X) polynomial, but shifted
 
     function verify(Proof memory proof, VerificationKey memory vk) internal view returns (bool) {
         PartialVerifierState memory state;
