@@ -1,3 +1,5 @@
+pub mod adapter;
+
 use bellman_ce::pairing::ff::{PrimeField, PrimeFieldRepr};
 use bellman_ce::pairing::{Engine, CurveAffine};
 use bellman_ce::plonk::better_cs::keys::{VerificationKey, Proof};
