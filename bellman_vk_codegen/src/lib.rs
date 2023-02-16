@@ -205,10 +205,10 @@ mod tests {
     #[test]
     fn render_key() {
         let mut reader = std::io::BufReader::with_capacity(1<<24,
-            std::fs::File::open("./deposit_vk.key").unwrap()
+            std::fs::File::open("/Users/lvcong/rust/solidity_plonk_verifier/bellman_vk_codegen/deposit_vk.key").unwrap()
         );
         let vk = VerificationKey::<Bn256, PlonkCsWidth4WithNextStepParams>::read(&mut reader).unwrap();
-        render_verification_key(&vk, "./template.sol", "../Verifier.sol");
+        render_verification_key(&vk, "/Users/lvcong/rust/solidity_plonk_verifier/bellman_vk_codegen/template.sol", "/Users/lvcong/rust/solidity_plonk_verifier/bellman_vk_codegen/Verifier.sol");
     }
 
     #[test]
